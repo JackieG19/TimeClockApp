@@ -14,6 +14,7 @@ const app = express();
 // connect to mongo database
 const url = "mongodb://" + myHost + "/timeclock";
 mongoose.connect(url, { useCreateIndex: true, useNewUrlParser: true });
+mongoose.Promise = global.Promise;
 
 app.use(express.static('public'));
 
