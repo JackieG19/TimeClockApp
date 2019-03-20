@@ -8,10 +8,6 @@ var myHost = process.env.IP;
 const app = express();
 
 // connect to mongo database
-// mongoose.connect('mongodb://' + myHost + '/employee');
-// mongoose.Promise = global.Promise;
-
-// connect to mongo database
 const url = "mongodb://" + myHost + "/timeclock";
 mongoose.connect(url, { useCreateIndex: true, useNewUrlParser: true });
 mongoose.Promise = global.Promise;
