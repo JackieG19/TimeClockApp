@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// const TimeSchema = new Schema({
-// 		type: Date,
-// 		default: Date.now
-// 	});
-
 const EmployeeSchema = new Schema({
 	firstName: {
 		type: String
@@ -14,22 +9,24 @@ const EmployeeSchema = new Schema({
 		type: String
 	},
 	empId:{
-		type: Number
+		type: Number,
+		required: true //lets auto generate this
 	},
 	companyName: {
 		type: String
 	},
 	deptName: {
 		type: String
-	}, 
-	timeIn: [{
-		type: Date,
-		default: Date.now
-	}],
-	timeOut: [{
-		type: Date,
-		default: Date.now
-	}],
+	},
+	
+	timeIn:Array,
+	
+	timeOut: Array,
+	
+	sessionTotals: {
+		type: Object,
+		required:true
+	},
 	isClockedIn: {
 		type: Boolean
 	}
