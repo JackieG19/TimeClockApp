@@ -14,9 +14,12 @@ addEmpBtn.addEventListener('click', function(){
 	clockForm.classList.add('hidden');
 });
 
-saveBtn.addEventListener('click', function(){
+saveBtn.addEventListener('click', function(e){
 	empForm.classList.add('hidden');
-	clockForm.classList.remove('hidden');	
+		addEmpBtn.classList.remove('hidden');
+	clockForm.classList.remove('hidden');
+		addEmp.classList.remove('hidden');
+	e.preventDefault();
 });
 
 inBtn.addEventListener('click', function(){
