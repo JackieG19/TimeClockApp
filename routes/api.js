@@ -1,4 +1,5 @@
-const express = require("express")
+// const emp  = ("../public/scripts/script1.js");
+const express = require("express");
 const router = express.Router();
 const Employee = require("../models/Employee");
 
@@ -29,8 +30,8 @@ router.delete('/:id', function(req, res, next){
   }).catch(next);
 });
 
-router.put('/intime/:id', function(req, res, next){
-  var timeIn = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+router.put('/in/:id', function(req, res, next){
+  var timeIn = new Date().getTime();
   Employee.findOneAndUpdate({_id: req.params.id}, {$push: { "timeIn": timeIn }}).then(function(employee){
      Employee.findOne({_id: req.params.id}).then(function(employee){
       res.send(employee);
@@ -38,14 +39,49 @@ router.put('/intime/:id', function(req, res, next){
   }).catch(next);
 });
 
-router.put('/outtime/:id', function(req, res, next){
-  var timeOut = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
-  Employee.findOneAndUpdate({_id: req.params.id}, {$push: { "timeOut": timeOut }}).then(function(employee){
-     Employee.findOne({_id: req.params.id}).then(function(employee){
-      res.send(employee);
+router.put('/out/:id', function(req, res, next){
+    var timeOut = new Date().getTime();
+    Employee.findOneAndUpdate({_id: req.params.id}, {$push: { "timeOut": timeOut }})
+    .then(function(employee){
+      Employee.findOne({_id: req.params.id})
+      .then(function(employee){
+        var session = calculateMinutes(employee.timeIn[employee.timeIn.length-1], employee.timeOut[employee.timeOut.length-1]);
+        var dateString = new Date().toLocaleString("en-US", {timeZone: "America/New_York"}).slice(0, 9);
+        //Employee.findOneAndUpdate({_id: req.params.id}, {"sessions": {"session": [dateString, session]}})
+        Employee.findOneAndUpdate({_id: req.params.id}, {$push: {"sessions": {"session": [dateString, session]}}})
+        .then(function(employee){
+          Employee.findOne({_id: req.params.id})
+          .then(function(employee){
+            res.send(employee);
+          });
+        });
+      }).catch(next);
     });
-  }).catch(next);
 });
+
+function calculateMinutes(timeIn = 0, timeOut = 0){
+		// if(isUserLoggedIn()){
+		// 	var runningTime = calculateRunningTime(timeIn);
+		// }
+	// 	// calculate total hours for given time frame
+	// // timeIn to timeOut + runningTime
+	var previousTime = 0;
+	if(timeIn && timeOut) {
+  	previousTime = timeOut - timeIn;
+	}
+	//console.log(timeIn, timeOut, Math.floor((previousTime / 1000) / 60));
+	return Math.floor((previousTime / 1000) / 60);
+}
+
+function calculateRunningTime(timeIn){
+	var runningTime = 0;
+// 	var currentTime = 9;
+// 	runningTime =  currentTime - timeIn;
+	return runningTime;
+}
+
+
+
 
 
 module.exports = router;

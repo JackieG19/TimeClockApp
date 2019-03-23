@@ -1,3 +1,4 @@
+
 const changeBtn = document.getElementById("change-btn");
 const inputSpan = document.getElementById("input-span");
 const saveBtn1 = document.getElementById("save-btn1");
@@ -10,7 +11,6 @@ const inBtn = document.getElementById("in-btn");
 const outBtn = document.getElementById("out-btn");
 const selEmp = document.getElementById("select-emp");
 
-
 changeBtn.addEventListener('click', function(){
 		changeBtn.classList.add('hidden');
 		inputSpan.classList.remove('hidden');
@@ -20,6 +20,7 @@ saveBtn1.addEventListener('click', function(e){
 		changeBtn.classList.remove('hidden');
 		inputSpan.classList.add('hidden');
 		e.preventDefault();
+		
 });
 
 addEmpBtn.addEventListener('click', function(){
@@ -40,34 +41,33 @@ saveBtn2.addEventListener('click', function(e){
 inBtn.addEventListener('click', function(){
 	inBtn.setAttribute('disabled', 'disabled');
 	outBtn.removeAttribute('disabled');
-
-  console.log('button was clicked');
-
+	var emp = selEmp.options[selEmp.selectedIndex].text;
+	var url = "https://cohort-6d-hdgknsn.c9users.io/api/in/" + emp;
+	clockIn(url);
 });
 
 outBtn.addEventListener('click', function(){
 	outBtn.setAttribute('disabled', 'disabled');
 	inBtn.removeAttribute('disabled');
+	var emp = selEmp.options[selEmp.selectedIndex].text;
+	var url = "https://cohort-6d-hdgknsn.c9users.io/api/out/" + emp;
+	clockOut(url);
 });
 
-selEmp.addEventListener('change', function(){
+selEmp.addEventListener('change', function(e){
 	outBtn.setAttribute('disabled', 'disabled');
 	inBtn.removeAttribute('disabled');
 });
 
-// const button = document.getElementById('myButton');
-// button.addEventListener('click', function(e) {
-//   console.log('button was clicked');
 
-//   fetch('/clicked', {method: 'POST'})
-//     .then(function(response) {
-//       if(response.ok) {
-//         console.log('Click was recorded');
-//         return;
-//       }
-//       throw new Error('Request failed.');
-//     })
-//     .catch(function(error) {
-//       console.log(error);
-//     });
-// });
+function clockIn(emp){
+	console.log(emp);
+}
+
+function clockOut(emp){
+	console.log(emp);
+}
+
+
+
+

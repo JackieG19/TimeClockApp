@@ -1,12 +1,13 @@
 
-function calculateHours(timeIn, timeOut){
+function calculateMinutes(timeIn, timeOut){
 		// if(isUserLoggedIn(userId)){
-			var runningTime = calculateRunningTime(timeIn);
-		// }
-		// calculate total hours for given time frame
-	// timeIn to timeOut + runningTime
-	var previousHours = timeOut - timeIn;
-	return runningTime + previousHours;
+	// 		var runningTime = calculateRunningTime(timeIn);
+	// 	// }
+	// 	// calculate total hours for given time frame
+	// // timeIn to timeOut + runningTime
+	// var previousHours = timeOut - timeIn;
+	// return runningTime + previousHours;
+	console.log(timeIn, timeOut);
 }
 
 function isUserLoggedIn(userId){
@@ -20,5 +21,5 @@ function calculateRunningTime(timeIn){
 	return runningTime;
 }
 
-console.log(calculateHours(0, 8));
+console.log(calculateMinutes(0, 8));
 

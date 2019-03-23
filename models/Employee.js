@@ -1,34 +1,57 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// const subSchema = new Schema({
+//   Day: {
+//     type: String,
+//     default: ""
+//   },
+//   session: {
+//     type: [Number],
+//     default: 0
+//   }
+// });
+
 const EmployeeSchema = new Schema({
 	firstName: {
-		type: String
+		type: String,
+		default: ""
 	},
 	lastName: {
-		type: String
+		type: String,
+		default: ""
 	},
 	empId:{
 		type: Number,
-		required: true //lets auto generate this
+		required: [true, 'empId field is required'],
+		default: 0
 	},
 	companyName: {
-		type: String
+		type: String,
+		default: ""
 	},
 	deptName: {
-		type: String
+		type: String,
+		default: ""
 	},
 	
-	timeIn:Array,
-	
-	timeOut: Array,
-	
-	sessionTotals: {
-		type: Object,
-		required:true
+	timeIn: {
+		type: Array,
+		default: []
 	},
+	
+	timeOut: {
+		type: Array,
+		default: []
+	},
+	
+	sessions: {
+		type: [{}]
+	},
+
 	isClockedIn: {
-		type: Boolean
+		type: Boolean,
+		default: false
 	}
 });
 
