@@ -13,7 +13,7 @@ router.get('/', function(req, res, next){
 // The find() method returns all occurrences in the selection.
 
 // add to the db
-router.post('/', function(req, res, next){
+router.post('/clicked', function(req, res, next){
     Employees.create(req.body).then(function(employees){
         res.send(employees); // this method is used to send the HTTP response
     }).catch(next);
