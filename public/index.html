@@ -23,23 +23,47 @@
 				<span><button id="add-emp-btn">Add New Employee</button></span>
 			</p>
 			
-			<form id="emp-form" class="hidden">
+			<form id="emp-form" method="POST" action="api">
 				<h2>Add New Employee</h2>				
 				<label>First Name: </label>
 				<input type="text" name="first"/>
+				<br></br>
+				
 				<label>Last Name: </label>
 				<input type="text" name="last"/>
-				<p>
-					<label>Employee Id: </label>
-					<input type="text" name="emp-id"/></p>
-				<p>
-					<label>Department Name: </label>
-					<input type="text" name="dept-name"/><p></p>
-					<button id="save-btn" type="submit">Save</button>
-				</p>
+				<br></br>
 				
-				<p id="data" method="POST" action="/clicked">Loading data.</p>
+				<label>Company Name: </label>
+				<input type="text" name="emp-id"/>
+				<br></br>
+				
+				<label>Department Name: </label>
+				<input type="text" name="dept-name">
+				<button id="save-btn" type="submit">Save</button>
 			</form>
-	<script src="./script.js" type="text/javascript"></script>
+			<div id="response">
+			</div>
+	<script>
+		document.getElementById('save-btn').addEventListener('click', sumbit);
+		
+		function sumbit(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'https://ide.c9.io/jackiegut19/firstworkspace', true);
+			
+			xhr.onload = function() {
+				if(this.status == 200){
+					var response = JSON.parse(this.responseText);
+					
+					var output = 
+						'<li>ID: '+response.id+'</li>' +
+                		'<li>Name: '+response.name+'</li>' +
+                		'</ul>';
+					
+					document.getElementById('response').innerHTML = output;
+				}
+			};
+			xhr.send();
+		}
+	</script>
 	</body>
 </html>

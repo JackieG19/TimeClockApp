@@ -2,18 +2,15 @@ const express = require('express');
 const router = express.Router();
 const Employees = require('../models/Employee.js');
 
-// get a list of employee from the database
+//get a list of employee from the database
 router.get('/', function(req, res, next){
   Employees.find({}).then(function(employees){
     res.send(employees);
   }).catch(next);
 });
 
-// To select data from a table in MongoDB, we can also use the find() method.
-// The find() method returns all occurrences in the selection.
-
 // add to the db
-router.post('/clicked', function(req, res, next){
+router.post('/', function(req, res, next){
     Employees.create(req.body).then(function(employees){
         res.send(employees); // this method is used to send the HTTP response
     }).catch(next);
