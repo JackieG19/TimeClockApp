@@ -1,27 +1,30 @@
-const IP = process.env.IP;
-const PORT = process.env.PORT;
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-const url = "mongodb://" + IP + "/timeclock";
-mongoose.connect(url, { useCreateIndex: true, useNewUrlParser: true });
+const http = require('http');
 
-mongoose.Promise = global.Promise;
+console.log("listening to myHost");
+
+var myHost = process.env.IP;
 
 const app = express();
+
+// connect to mongo database
+const url = "mongodb://" + myHost + "/timeclock";
+
+
+mongoose.connect(url, { useCreateIndex: true, useNewUrlParser: true, useFindAndModify: false });
+mongoose.Promise = global.Promise;
 
 app.use(express.static("./public"));
 
 app.use(bodyParser.json());
 
-app.use("/api", require("./routes/api"));
+app.use('/', require('index'));
 
-app.use(function(err, req, res, next){
-  console.log(err); 
-  res.status(422).send({error: err.message});
-});
+app.use('/api', require('./routes/api'));
 
-app.listen(PORT, IP, function(){
-	console.log("listening for requests at :" + IP + " on port " + PORT);
+app.listen(process.env.PORT, process.env.IP, function(){
+  console.log('now listening for request');
 });
